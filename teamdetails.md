@@ -18,13 +18,7 @@
    **Email:**  dsshashank05@gmail.ocm
    **Phone:** +91-9620519755
 
-3. **Name:** Varun S  
-   **Email:**   varunshivakumarspsv@gmail.com
-   **Phone:** +91-6362333360
 
-4. **Name:** Vinayak Angadi  
-   **Email:**   Vinayakangadi96@gmail.com
-   **Phone:** +91-9108645942
 
 > 
 
