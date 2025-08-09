@@ -1,9 +1,12 @@
-flask==2.3.3
+Flask==2.3.3
 flask-cors==4.0.1
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.0.1
-torchvision==0.15.2
-torchaudio==2.0.2
-pandas==2.1.0
-pillow==10.0.0
+
+# PyTorch CPU-only installation
+torch==2.1.1+cpu
+torchvision==0.14.1+cpu
+torchaudio==2.10.1+cpu
+--index-url https://download.pytorch.org/whl/cpu
+
+pandas==2.5.3
+pillow==10.5.0
 openpyxl==3.1.2
