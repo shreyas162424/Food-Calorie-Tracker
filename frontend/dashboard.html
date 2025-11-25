@@ -30,7 +30,7 @@
                     </select>
                 </div>
 
-                <div class="dashboard-flex">
+                <div class="dashboard-grid">
                     
                     <section class="module capture-module">
                         <h2 class="module-title">📸 Scan Food</h2>
@@ -52,13 +52,13 @@
                         <button id="analyze-btn" class="btn-galactic">Analyze Now</button>
                         
                         <div id="preview" class="preview-area"></div>
-                        <div id="result" class="result-area"></div>
-                    </section>
+                        <div id="result" class="result-card" style="display:none;"></div> </section>
 
                     <section class="module logs-module">
                         <h2 class="module-title">📜 History</h2>
                         <div class="logs-pod">
-                            <ul id="food-logs" class="cosmic-logs"></ul>
+                            <ul id="food-logs" class="cosmic-logs">
+                                </ul>
                         </div>
                     </section>
 
@@ -69,7 +69,6 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="dashboard.js"></script>
 </body>
 </html>
