@@ -1,17 +1,17 @@
 /* =========================================
-   1. GLOBAL RESET
+   1. GLOBAL RESET & BASE
    ========================================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #0b0d17;
+    background: #0b0d17; /* Deep Space Black */
     color: #fff;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* Background */
+/* Cosmic Background */
 .hero-bg {
     position: relative;
     width: 100%;
@@ -25,13 +25,56 @@ body {
 .container {
     position: relative;
     z-index: 2;
-    max-width: 1200px; /* Wider container for side-by-side */
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/* Typography */
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    background: linear-gradient(to right, #fff, #b0b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.subtitle { color: #a0a0ff; font-size: 0.9rem; margin-top: -5px; }
+.error-text { color: #ff4757; font-size: 0.9rem; margin-top: 10px; }
+
 /* =========================================
-   2. HEADER & SEARCH
+   2. LOGIN PAGE STYLES (INDEX.HTML)
+   ========================================= */
+.auth-portal {
+    max-width: 400px;
+    margin: 8vh auto 0 auto; /* Centers it vertically */
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.portal-title {
+    font-size: 1.5rem; color: #fff; margin-bottom: 25px;
+    text-transform: uppercase; letter-spacing: 2px;
+}
+
+.input-orbit { position: relative; margin-bottom: 20px; }
+
+.toggle-text { margin-top: 15px; font-size: 0.9rem; }
+.toggle-text a { color: #ff007a; text-decoration: none; font-weight: bold; }
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   3. DASHBOARD HEADER & LAYOUT
    ========================================= */
 .dashboard-header {
     display: flex;
@@ -44,38 +87,22 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #fff; }
-.subtitle { color: #a0a0ff; font-size: 0.9rem; margin-top: -5px; }
-
 .btn-exit {
     background: transparent; border: 1px solid #ff4757; color: #ff4757;
-    padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600;
+    padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: 600;
+    transition: 0.3s;
 }
 .btn-exit:hover { background: #ff4757; color: white; }
 
-/* Filter Bar */
-.filter-bar {
-    display: flex; gap: 10px; margin-bottom: 20px;
-    background: rgba(20, 20, 30, 0.6); padding: 15px;
-    border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
-}
-
-.input-field {
-    background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.2);
-    color: white; padding: 10px; border-radius: 8px; width: 100%; outline: none;
-}
-
-/* =========================================
-   3. STRICT GRID LAYOUT (FIXES THE VIDEO ISSUE)
-   ========================================= */
+/* Strict Grid System (The Dashboard Fix) */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 380px 1fr; /* Left is fixed 380px, Right is auto */
+    grid-template-columns: 360px 1fr; /* Fixed Left, Auto Right */
     gap: 25px;
     align-items: start;
 }
 
-/* Card Style */
+/* Card Module Style */
 .module {
     background: rgba(20, 20, 30, 0.7);
     backdrop-filter: blur(12px);
@@ -91,7 +118,33 @@ body {
 }
 
 /* =========================================
-   4. SCANNER SECTION (LEFT)
+   4. INPUTS & BUTTONS (SHARED)
+   ========================================= */
+.filter-bar {
+    display: flex; gap: 10px; margin-bottom: 20px;
+    background: rgba(20, 20, 30, 0.6); padding: 15px;
+    border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+}
+
+.input-field {
+    background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 12px; border-radius: 8px; width: 100%; outline: none;
+    font-size: 1rem;
+}
+.input-field:focus { border-color: #ff007a; }
+
+.btn-galactic {
+    width: 100%; padding: 12px;
+    background: linear-gradient(45deg, #ff007a, #7a00ff);
+    border: none; border-radius: 50px; color: white;
+    font-weight: bold; cursor: pointer; text-transform: uppercase;
+    transition: transform 0.2s; font-size: 1rem;
+}
+.btn-galactic:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255,0,122,0.5); }
+.btn-galactic:disabled { background: #555; cursor: not-allowed; }
+
+/* =========================================
+   5. SCANNER & RESULTS (LEFT COLUMN)
    ========================================= */
 .file-upload-label {
     display: block;
@@ -101,62 +154,28 @@ body {
     cursor: pointer; margin-bottom: 15px; transition: 0.3s;
 }
 .file-upload-label:hover { border-color: #ff007a; background: rgba(255, 0, 122, 0.05); }
+.file-upload-label span { color: #aaa; }
 .file-upload-label input { display: none; }
 
 .control-row { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
 
-.btn-galactic {
-    width: 100%; padding: 12px;
-    background: linear-gradient(45deg, #ff007a, #7a00ff);
-    border: none; border-radius: 50px; color: white;
-    font-weight: bold; cursor: pointer; text-transform: uppercase;
-    transition: transform 0.2s;
-}
-.btn-galactic:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255,0,122,0.5); }
-
-/* Image Preview */
 .preview-area img {
     width: 100%; border-radius: 10px; margin-top: 15px;
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* =========================================
-   5. HISTORY SECTION (RIGHT)
-   ========================================= */
-.logs-pod { max-height: 600px; overflow-y: auto; padding-right: 5px; }
-
-.cosmic-logs { list-style: none; }
-.cosmic-logs li {
-    background: rgba(255, 255, 255, 0.03);
-    margin-bottom: 10px; padding: 15px; border-radius: 8px;
-    border-left: 4px solid #7a00ff;
-    display: flex; justify-content: space-between; align-items: center;
-}
-
-.log-info strong { display: block; font-size: 1.1rem; color: #fff; }
-.log-info small { color: #888; }
-.log-stats { text-align: right; }
-.remove-log {
-    background: none; border: none; color: #ff4757; font-size: 1.5rem;
-    cursor: pointer; margin-left: 10px;
-}
-
-/* =========================================
-   6. RESULT CARD (THE PRETTY PART)
-   ========================================= */
+/* Result Card */
 .result-card {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 12px; padding: 15px; margin-top: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeInUp 0.5s ease-out;
 }
-
 .result-header {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 10px;
+    margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;
 }
-.result-header h3 { color: #fff; margin: 0; font-size: 1.2rem; }
+.result-header h3 { margin: 0; font-size: 1.2rem; color: #fff; text-transform: capitalize; }
 .confidence-badge {
     background: #2ecc71; color: #000; padding: 4px 10px;
     border-radius: 12px; font-size: 0.75rem; font-weight: bold;
@@ -175,25 +194,34 @@ body {
 .nutri-item .value { font-size: 1.1rem; font-weight: bold; }
 .nutri-item .label { font-size: 0.7rem; color: #aaa; text-transform: uppercase; }
 
-/* Summary */
 .summary-box {
     background: rgba(255, 255, 255, 0.03); padding: 10px; border-radius: 8px;
     border-left: 3px solid #a0a0ff; font-size: 0.9rem; line-height: 1.4; color: #ddd;
 }
 
 /* =========================================
+   6. HISTORY (RIGHT COLUMN)
+   ========================================= */
+.logs-pod { max-height: 600px; overflow-y: auto; padding-right: 5px; }
+
+.cosmic-logs { list-style: none; }
+.cosmic-logs li {
+    background: rgba(255, 255, 255, 0.03);
+    margin-bottom: 10px; padding: 15px; border-radius: 8px;
+    border-left: 4px solid #7a00ff;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.log-info strong { display: block; font-size: 1.1rem; }
+.log-info small { color: #888; }
+.remove-log {
+    background: none; border: none; color: #ff4757; font-size: 1.5rem;
+    cursor: pointer; margin-left: 10px;
+}
+
+/* =========================================
    7. MOBILE RESPONSIVE
    ========================================= */
 @media (max-width: 900px) {
-    .dashboard-grid { grid-template-columns: 1fr; } /* Stack on tablet/mobile */
-    .capture-module { width: 100%; }
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .auth-portal { margin-top: 10vh; width: 90%; }
 }
-
-/* Login Page Styles (kept for compatibility) */
-.auth-portal {
-    max-width: 400px; margin: 50px auto; padding: 40px;
-    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-    border-radius: 20px; text-align: center;
-}
-.input-orbit { position: relative; margin-bottom: 20px; }
-.portal-title { margin-bottom: 20px; font-size: 1.5rem; }
