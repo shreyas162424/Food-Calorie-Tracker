@@ -1,17 +1,17 @@
 /* =========================================
-   1. GLOBAL RESET & FONTS
+   1. GLOBAL RESET
    ========================================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #0b0d17; /* Deep Space Black */
+    background: #0b0d17;
     color: #fff;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* Background Wrapper */
+/* Background */
 .hero-bg {
     position: relative;
     width: 100%;
@@ -20,63 +20,18 @@ body {
     padding-bottom: 2rem;
 }
 
-#particles-js {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-}
+#particles-js { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
 
 .container {
     position: relative;
     z-index: 2;
-    max-width: 1100px;
+    max-width: 1200px; /* Wider container for side-by-side */
     margin: 0 auto;
     padding: 20px;
 }
 
 /* =========================================
-   2. TYPOGRAPHY
-   ========================================= */
-.title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    background: linear-gradient(to right, #fff, #b0b0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 5px;
-}
-
-.subtitle {
-    font-size: 1rem;
-    color: #a0a0ff;
-    letter-spacing: 1px;
-}
-
-.error-text { color: #ff4757; font-size: 0.9rem; margin-top: 10px; }
-.toggle-text { margin-top: 15px; font-size: 0.9rem; }
-.toggle-text a { color: #ff007a; text-decoration: none; font-weight: bold; }
-
-/* =========================================
-   3. LOGIN PAGE SPECIFIC
-   ========================================= */
-.auth-portal {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-}
-
-.portal-title { font-size: 1.5rem; margin-bottom: 20px; color: white; }
-
-.input-orbit { position: relative; margin-bottom: 20px; }
-
-/* =========================================
-   4. DASHBOARD HEADER
+   2. HEADER & SEARCH
    ========================================= */
 .dashboard-header {
     display: flex;
@@ -85,255 +40,160 @@ body {
     background: rgba(255, 255, 255, 0.05);
     padding: 15px 25px;
     border-radius: 12px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #fff; }
+.subtitle { color: #a0a0ff; font-size: 0.9rem; margin-top: -5px; }
+
 .btn-exit {
-    background: transparent;
-    border: 1px solid #ff4757;
-    color: #ff4757;
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
+    background: transparent; border: 1px solid #ff4757; color: #ff4757;
+    padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600;
 }
 .btn-exit:hover { background: #ff4757; color: white; }
 
+/* Filter Bar */
+.filter-bar {
+    display: flex; gap: 10px; margin-bottom: 20px;
+    background: rgba(20, 20, 30, 0.6); padding: 15px;
+    border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+}
+
+.input-field {
+    background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 10px; border-radius: 8px; width: 100%; outline: none;
+}
+
 /* =========================================
-   5. DASHBOARD LAYOUT (The Fix)
+   3. STRICT GRID LAYOUT (FIXES THE VIDEO ISSUE)
    ========================================= */
-.dashboard-flex {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    flex-wrap: wrap; /* Allows stacking on small screens */
-}
-
-/* Left Column: Scanner */
-.capture-module {
-    flex: 0 0 350px; /* Fixed width for scanner */
-    width: 350px;
-}
-
-/* Right Column: History */
-.logs-module {
-    flex: 1; /* Takes remaining space */
-    min-width: 300px; /* Prevents becoming too thin */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr; /* Left is fixed 380px, Right is auto */
+    gap: 25px;
+    align-items: start;
 }
 
 /* Card Style */
-.module, .filter-bar {
-    background: rgba(20, 20, 30, 0.7); /* Darker for readability */
+.module {
+    background: rgba(20, 20, 30, 0.7);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
     padding: 25px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
 }
 
 .module-title {
-    font-size: 1.2rem;
-    color: #fff;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 10px;
+    font-size: 1.2rem; color: #fff; margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;
 }
 
 /* =========================================
-   6. INPUTS & BUTTONS
+   4. SCANNER SECTION (LEFT)
    ========================================= */
-.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; }
-
-.input-field {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 12px;
-    border-radius: 8px;
-    width: 100%;
-    font-size: 1rem;
-    outline: none;
-}
-.input-field:focus { border-color: #ff007a; }
-
-.btn-galactic {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(45deg, #ff007a, #7a00ff);
-    border: none;
-    border-radius: 50px;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: transform 0.2s;
-    margin-top: 10px;
-}
-.btn-galactic:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255, 0, 122, 0.5); }
-
-/* File Upload Box */
 .file-upload-label {
     display: block;
     background: rgba(255, 255, 255, 0.05);
     border: 2px dashed rgba(255, 255, 255, 0.3);
-    text-align: center;
-    padding: 30px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 15px;
-    transition: 0.3s;
+    text-align: center; padding: 30px; border-radius: 10px;
+    cursor: pointer; margin-bottom: 15px; transition: 0.3s;
 }
 .file-upload-label:hover { border-color: #ff007a; background: rgba(255, 0, 122, 0.05); }
-.file-upload-label span { color: #aaa; }
 .file-upload-label input { display: none; }
 
 .control-row { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
 
-/* =========================================
-   7. RESULTS & HISTORY
-   ========================================= */
+.btn-galactic {
+    width: 100%; padding: 12px;
+    background: linear-gradient(45deg, #ff007a, #7a00ff);
+    border: none; border-radius: 50px; color: white;
+    font-weight: bold; cursor: pointer; text-transform: uppercase;
+    transition: transform 0.2s;
+}
+.btn-galactic:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255,0,122,0.5); }
+
+/* Image Preview */
 .preview-area img {
-    width: 100%;
-    border-radius: 10px;
-    margin-top: 15px;
+    width: 100%; border-radius: 10px; margin-top: 15px;
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-.result-area {
-    margin-top: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
+/* =========================================
+   5. HISTORY SECTION (RIGHT)
+   ========================================= */
+.logs-pod { max-height: 600px; overflow-y: auto; padding-right: 5px; }
 
-.logs-pod { max-height: 500px; overflow-y: auto; }
 .cosmic-logs { list-style: none; }
 .cosmic-logs li {
     background: rgba(255, 255, 255, 0.03);
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 8px;
+    margin-bottom: 10px; padding: 15px; border-radius: 8px;
     border-left: 4px solid #7a00ff;
-    display: flex;
-    flex-direction: column;
+    display: flex; justify-content: space-between; align-items: center;
 }
+
+.log-info strong { display: block; font-size: 1.1rem; color: #fff; }
+.log-info small { color: #888; }
+.log-stats { text-align: right; }
 .remove-log {
-    align-self: flex-end;
-    background: #ff4757;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    margin-top: 5px;
-    cursor: pointer;
+    background: none; border: none; color: #ff4757; font-size: 1.5rem;
+    cursor: pointer; margin-left: 10px;
 }
 
 /* =========================================
-   8. MOBILE RESPONSIVE
-   ========================================= */
-@media (max-width: 800px) {
-    .dashboard-flex { flex-direction: column; }
-    .capture-module, .logs-module { width: 100%; flex: auto; }
-    .title { font-size: 1.8rem; }
-}
-/* =========================================
-   9. NEW RESULT CARD STYLES
+   6. RESULT CARD (THE PRETTY PART)
    ========================================= */
 .result-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px; padding: 15px; margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     animation: fadeIn 0.5s ease-out;
 }
 
 .result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 10px;
 }
-
-.result-header h3 {
-    text-transform: capitalize;
-    font-size: 1.5rem;
-    color: #fff;
-    margin: 0;
-}
-
+.result-header h3 { color: #fff; margin: 0; font-size: 1.2rem; }
 .confidence-badge {
-    background: #28a745;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
+    background: #2ecc71; color: #000; padding: 4px 10px;
+    border-radius: 12px; font-size: 0.75rem; font-weight: bold;
 }
 
-/* Nutrition Grid Layout */
+/* Nutrition Grid */
 .nutrition-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    gap: 15px;
-    margin-bottom: 20px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;
 }
-
 .nutri-item {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 15px;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s;
 }
+.calorie-box { grid-column: span 2; background: rgba(255, 71, 87, 0.2); border: 1px solid #ff4757; }
+.nutri-item .icon { font-size: 1.2rem; display: block; margin-bottom: 5px; }
+.nutri-item .value { font-size: 1.1rem; font-weight: bold; }
+.nutri-item .label { font-size: 0.7rem; color: #aaa; text-transform: uppercase; }
 
-.nutri-item:hover {
-    transform: translateY(-3px);
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.calorie-box {
-    grid-column: span 2; /* Make calories take full width */
-    background: linear-gradient(45deg, #ff4757, #ff6b81);
-    border: none;
-}
-
-.nutri-item .icon { font-size: 1.5rem; margin-bottom: 5px; }
-.nutri-item .value { font-size: 1.2rem; font-weight: bold; color: #fff; }
-.nutri-item .label { font-size: 0.8rem; color: #ddd; text-transform: uppercase; margin-top: 5px; }
-
-/* Summary Box */
+/* Summary */
 .summary-box {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 4px solid #a0a0ff;
+    background: rgba(255, 255, 255, 0.03); padding: 10px; border-radius: 8px;
+    border-left: 3px solid #a0a0ff; font-size: 0.9rem; line-height: 1.4; color: #ddd;
 }
 
-.summary-box h4 { margin-bottom: 10px; font-size: 1rem; color: #a0a0ff; }
-.summary-box p { font-size: 0.9rem; line-height: 1.5; color: #eee; }
-
-.loading-spinner {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #a0a0ff;
-    padding: 20px;
-    animation: pulse 1.5s infinite;
+/* =========================================
+   7. MOBILE RESPONSIVE
+   ========================================= */
+@media (max-width: 900px) {
+    .dashboard-grid { grid-template-columns: 1fr; } /* Stack on tablet/mobile */
+    .capture-module { width: 100%; }
 }
 
-@keyframes pulse {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
+/* Login Page Styles (kept for compatibility) */
+.auth-portal {
+    max-width: 400px; margin: 50px auto; padding: 40px;
+    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+    border-radius: 20px; text-align: center;
 }
+.input-orbit { position: relative; margin-bottom: 20px; }
+.portal-title { margin-bottom: 20px; font-size: 1.5rem; }
