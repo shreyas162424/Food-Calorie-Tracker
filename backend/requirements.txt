@@ -13,5 +13,8 @@ rapidfuzz==3.6.1
 # Wikipedia API
 wikipedia==1.4.0
 
+google-generativeai
+python-dotenv
+Pillow
 
 
