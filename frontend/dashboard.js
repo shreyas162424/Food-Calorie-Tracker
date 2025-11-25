@@ -1,161 +1,90 @@
-document.addEventListener('DOMContentLoaded', () => {
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 100, density: { enable: true, value_area: 800 } },
-            color: { value: '#DAA520' },
-            shape: { type: 'circle' },
-            opacity: { value: 0.6, random: true },
-            size: { value: 3, random: true },
-            line_linked: { enable: true, distance: 150, color: '#8B4513', opacity: 0.3, width: 1 },
-            move: { enable: true, speed: 5, direction: 'none', random: true, attract: { enable: true, rotateX: 600, rotateY: 1200 } }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: { enable: true, mode: 'bubble' },
-                onclick: { enable: true, mode: 'repulse' },
-                resize: true
-            },
-            modes: {
-                bubble: { distance: 300, size: 6, duration: 0.5 },
-                repulse: { distance: 200, duration: 0.4 }
-            }
-        },
-        retina_detect: true
-    });
+// 👇 REPLACE THIS WITH YOUR ACTUAL HUGGING FACE URL
+const BASE_URL = "https://YOUR-HUGGING-FACE-URL.hf.space"; 
 
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-        window.location.href = 'index.html';
+// Check if user is logged in
+const userId = sessionStorage.getItem('userId');
+if (!userId) {
+    window.location.href = 'index.html';
+}
+
+async function analyzeFood() {
+    const fileInput = document.getElementById('imageInput');
+    const weight = document.getElementById('weight').value;
+    const status = document.getElementById('status');
+    const resultBox = document.getElementById('resultBox');
+
+    if (!fileInput.files[0]) {
+        alert("Please select an image first!");
         return;
     }
 
-    const imageInput = document.getElementById('image-input');
-    const weightSelect = document.getElementById('weight');
-    const analyzeBtn = document.getElementById('analyze-btn');
-    const preview = document.getElementById('preview');
-    const result = document.getElementById('result');
-    const foodLogs = document.getElementById('food-logs');
-    const logoutBtn = document.getElementById('logout-btn');
-    const searchLogs = document.getElementById('search-logs');
-    const filterWeight = document.getElementById('filter-weight');
+    status.innerText = "Analyzing... please wait...";
+    resultBox.style.display = 'none';
 
-    function loadLogs() {
-        fetch(`http://localhost:5000/api/food-logs?userId=${userId}`)
-            .then(response => response.json())
-            .then(logs => {
-                foodLogs.innerHTML = '';
-                let filteredLogs = logs.filter(log =>
-                    log.foodName.toLowerCase().includes(searchLogs.value.toLowerCase()) &&
-                    (filterWeight.value === 'all' || log.weight === parseInt(filterWeight.value))
-                );
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+    formData.append("userId", userId);
+    formData.append("weight", weight);
 
-                filteredLogs.forEach(log => {
-                    const li = document.createElement('li');
-                    li.draggable = true;
-                    li.innerHTML = `
-                        <span><strong>${log.foodName}</strong> (${(log.confidence * 100).toFixed(2)}%) - ${log.weight}g</span>
-                        <span>🌶️ ${log.nutrition.calories.toFixed(1)} kcal | 🍗 ${log.nutrition.protein.toFixed(1)}g | 🍚 ${log.nutrition.carbs.toFixed(1)}g | 🥑 ${log.nutrition.fat.toFixed(1)}g</span>
-                        <button class="remove-log" data-id="${log.id}">Remove</button>
-                    `;
-                    foodLogs.appendChild(li);
-                });
-
-                $(foodLogs).sortable({
-                    revert: true,
-                    cursor: 'move',
-                    update: function() {
-                        console.log('Log order updated');
-                    }
-                });
-                $(foodLogs).disableSelection();
-
-                document.querySelectorAll('.remove-log').forEach(btn => {
-                    btn.addEventListener('click', () => removeLog(btn.dataset.id));
-                });
-            })
-            .catch(error => console.error('Error loading logs:', error));
-    }
-
-    imageInput.addEventListener('change', () => {
-        const file = imageInput.files[0];
-        if (file) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(file);
-            preview.innerHTML = '';
-            preview.appendChild(img);
-            img.classList.add('animate-float');
-        }
-    });
-
-    analyzeBtn.addEventListener('click', () => {
-        const file = imageInput.files[0];
-        if (!file) {
-            result.innerHTML = '<p class="error-text">No dish to analyze!</p>';
-            result.style.opacity = 1;
-            setTimeout(() => result.style.opacity = 0, 3000);
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('userId', userId);
-        formData.append('weight', weightSelect.value);
-
-        result.innerHTML = '<p class="loading-text">Tasting...</p>';
-        result.style.opacity = 1;
-        analyzeBtn.disabled = true;
-        analyzeBtn.style.boxShadow = '0 0 25px #8B4513';
-
-        fetch('http://localhost:5000/api/recognize', {
+    try {
+        const response = await fetch(`${BASE_URL}/api/recognize`, {
             method: 'POST',
             body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            analyzeBtn.disabled = false;
-            analyzeBtn.style.boxShadow = '0 0 15px #DAA520';
-            if (data.error) {
-                result.innerHTML = `<p class="error-text">${data.error}</p>`;
-                result.style.opacity = 1;
-                setTimeout(() => result.style.opacity = 0, 3000);
-            } else {
-                result.innerHTML = `
-                    <h3>${data.foodName}</h3>
-                    <p>Confidence: ${(data.confidence * 100).toFixed(2)}%</p>
-                    <p>Calories:🌶️ ${data.nutrition.calories.toFixed(1)} kcal |Protien: 🍗 ${data.nutrition.protein.toFixed(1)}g |Carbs: 🍚 ${data.nutrition.carbs.toFixed(1)}g | Fat:🥑 ${data.nutrition.fat.toFixed(1)}g</p>
-                     <div class="food-summary">
-            <h4>🍽️ What is ${data.foodName.replace(/_/g, ' ')}?</h4>
-            <p>${data.summary}</p>
-        </div>
-                `;
-                result.style.opacity = 1;
-                loadLogs();
-                setTimeout(() => result.style.opacity = 1, 5000);
-            }
-        })
-        .catch(error => {
-            analyzeBtn.disabled = false;
-            analyzeBtn.style.boxShadow = '0 0 15px #DAA520';
-            result.innerHTML = '<p class="error-text">Analysis failed!</p>';
-            result.style.opacity = 1;
-            setTimeout(() => result.style.opacity = 0, 3000);
-            console.error(error);
         });
-    });
 
-    logoutBtn.addEventListener('click', () => {
-        logoutBtn.style.boxShadow = '0 0 25px #A52A2A';
-        setTimeout(() => {
-            localStorage.removeItem('userId');
-            window.location.href = 'index.html';
-        }, 300);
-    });
+        const data = await response.json();
 
-    // Real-time Filtering
-    searchLogs.addEventListener('input', loadLogs);
-    filterWeight.addEventListener('change', loadLogs);
+        if (response.ok) {
+            status.innerText = "";
+            resultBox.style.display = 'block';
+            
+            // Update UI with Data
+            document.getElementById('foodName').innerText = data.foodName;
+            document.getElementById('confidence').innerText = (data.confidence * 100).toFixed(1) + "%";
+            document.getElementById('summary').innerText = data.summary;
 
-    // Initial Load
-    loadLogs();
-});
+            // Fill Nutrition Info
+            const nutList = document.getElementById('nutritionList');
+            nutList.innerHTML = `
+                <li>Calories: ${data.nutrition.calories} kcal</li>
+                <li>Protein: ${data.nutrition.protein}g</li>
+                <li>Carbs: ${data.nutrition.carbs}g</li>
+                <li>Fat: ${data.nutrition.fat}g</li>
+            `;
+
+            // Refresh logs
+            loadLogs();
+        } else {
+            status.innerText = "Error: " + (data.error || "Unknown error");
+        }
+    } catch (error) {
+        console.error(error);
+        status.innerText = "Failed to connect to server.";
+    }
+}
+
+async function loadLogs() {
+    const list = document.getElementById('historyList');
+    try {
+        const response = await fetch(`${BASE_URL}/api/food-logs?userId=${userId}`);
+        const logs = await response.json();
+
+        list.innerHTML = "";
+        logs.forEach(log => {
+            const date = new Date(log.timestamp).toLocaleDateString();
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${log.foodName}</strong> (${log.nutrition.calories} kcal) - <small>${date}</small>`;
+            list.appendChild(li);
+        });
+    } catch (error) {
+        console.error("Log Error:", error);
+    }
+}
+
+function logout() {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+}
+
+// Load logs when page opens
+loadLogs();
