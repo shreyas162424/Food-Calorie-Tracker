@@ -1,63 +1,289 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f9;
+/* =========================================
+   1. GLOBAL COSMIC RESET
+   ========================================= */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #333;
 }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #0b0d17; /* Deep Space Black */
+    color: #fff;
+    height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-/* Login Box */
-.form-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin: 5px;
-}
-
-.primary-btn { background-color: #28a745; color: white; }
-.secondary-btn { background-color: #007bff; color: white; }
-.logout-btn { background-color: #dc3545; color: white; float: right; margin: 10px; }
-
-/* Dashboard Cards */
-.card {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-nav {
-    background: #333;
-    color: white;
-    padding: 1rem;
+/* Background Wrapper for Particles */
+.hero-bg {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
     overflow: hidden;
 }
 
-nav h2 { margin: 0; display: inline-block; }
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 2; /* Keeps content above stars/planets */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* =========================================
+   2. ANIMATIONS & DECOR
+   ========================================= */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.floating-planet, .floating-ufo {
+    pointer-events: none; /* Let clicks pass through */
+    transition: all 0.5s ease;
+}
+
+.animate-header { animation: fadeInDown 1s ease-out; }
+.animate-portal { animation: fadeInUp 1s ease-out 0.5s backwards; }
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   3. TYPOGRAPHY
+   ========================================= */
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    background: linear-gradient(to right, #fff, #b0b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(176, 176, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #a0a0ff;
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+}
+
+/* =========================================
+   4. GLASSMORPHISM CARDS (Login & Dashboard)
+   ========================================= */
+.auth-portal, .module, .card {
+    background: rgba(255, 255, 255, 0.05); /* See-through glass */
+    backdrop-filter: blur(10px); /* Blurry background effect */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 450px;
+    margin: 0 auto 2rem auto;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.portal-title, .module-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   5. INPUTS & FORMS (Orbit Style)
+   ========================================= */
+.input-orbit {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.input-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 5px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-field:focus {
+    border-bottom-color: #ff007a;
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Dropdowns specifically */
+select.input-field {
+    background: #0b0d17; /* Solid background so options are readable */
+    cursor: pointer;
+}
+
+/* =========================================
+   6. BUTTONS (Galactic Style)
+   ========================================= */
+.btn-galactic, .primary-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(45deg, #ff007a, #7a00ff);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 122, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-galactic:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(255, 0, 122, 0.7);
+}
+
+.btn-galactic:disabled {
+    background: #555;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.toggle-text {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.toggle-text a {
+    color: #ff007a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================================
+   7. DASHBOARD SPECIFIC
+   ========================================= */
+/* Filters Bar */
+.logs-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Upload Area */
+.capture-pod {
+    text-align: center;
+}
+
+.preview-holo img {
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.result-holo {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+/* Logs List */
+.logs-pod {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.cosmic-logs {
+    list-style: none;
+    padding: 0;
+}
+
+.cosmic-logs li {
+    background: rgba(255, 255, 255, 0.08);
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #7a00ff;
+    transition: transform 0.2s;
+}
+
+.cosmic-logs li:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.remove-log {
+    background: #ff4757;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+/* Logout Button */
+.btn-exit {
+    background: transparent;
+    border: 1px solid #ff4757;
+    color: #ff4757;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+}
+
+.btn-exit:hover {
+    background: #ff4757;
+    color: white;
+    box-shadow: 0 0 15px #ff4757;
+}
+
+.error-text { color: #ff6b6b; margin-top: 10px; font-weight: bold; }
+
+/* =========================================
+   8. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    .title { font-size: 2.5rem; }
+    .container { padding: 1rem; }
+    .btn-exit { position: relative; top: 0; right: 0; margin-top: 10px; }
+}
