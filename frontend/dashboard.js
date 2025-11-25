@@ -1,5 +1,5 @@
 // 👇 REPLACE THIS WITH YOUR HUGGING FACE URL (No trailing slash)
-https://rocky200416-food-calorie-tracker.hf.space
+const BASE_URL = "https://rocky200416-food-calorie-tracker.hf.space";
 
 document.addEventListener('DOMContentLoaded', () => {
     particlesJS('particles-js', {
