@@ -1,22 +1,22 @@
 /* =========================================
-   1. GLOBAL RESET & BASE
+   1. GLOBAL RESET & FONTS
    ========================================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #0b0d17;
+    background: #0b0d17; /* Deep Space Black */
     color: #fff;
     min-height: 100vh;
-    font-size: 14px; /* Smaller base font size */
+    overflow-x: hidden;
 }
 
-/* Background */
+/* Background Wrapper */
 .hero-bg {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: radial-gradient(circle at top center, #1b2735 0%, #090a0f 80%);
+    background: radial-gradient(circle at center, #1b2735 0%, #090a0f 90%);
     padding-bottom: 2rem;
 }
 
@@ -29,192 +29,216 @@ body {
 .container {
     position: relative;
     z-index: 2;
-    max-width: 1200px; /* Wider container */
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 20px;
 }
 
 /* =========================================
-   2. HEADER (COMPACT)
+   2. TYPOGRAPHY
+   ========================================= */
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #fff, #b0b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #a0a0ff;
+    letter-spacing: 1px;
+}
+
+.error-text { color: #ff4757; font-size: 0.9rem; margin-top: 10px; }
+.toggle-text { margin-top: 15px; font-size: 0.9rem; }
+.toggle-text a { color: #ff007a; text-decoration: none; font-weight: bold; }
+
+/* =========================================
+   3. LOGIN PAGE SPECIFIC
+   ========================================= */
+.auth-portal {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.portal-title { font-size: 1.5rem; margin-bottom: 20px; color: white; }
+
+.input-orbit { position: relative; margin-bottom: 20px; }
+
+/* =========================================
+   4. DASHBOARD HEADER
    ========================================= */
 .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; /* Reduced from 4rem */
-    background: linear-gradient(to right, #fff, #b0b0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.subtitle {
-    font-size: 0.9rem;
-    color: #a0a0ff;
-    letter-spacing: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-exit {
     background: transparent;
     border: 1px solid #ff4757;
     color: #ff4757;
-    padding: 6px 16px;
+    padding: 8px 20px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-weight: 600;
     transition: 0.3s;
 }
-
 .btn-exit:hover { background: #ff4757; color: white; }
 
 /* =========================================
-   3. LAYOUT GRID (The Fix)
+   5. DASHBOARD LAYOUT (The Fix)
    ========================================= */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal columns */
-    gap: 1.5rem;
-    align-items: start;
+.dashboard-flex {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Allows stacking on small screens */
 }
 
-/* Glass Cards */
+/* Left Column: Scanner */
+.capture-module {
+    flex: 0 0 350px; /* Fixed width for scanner */
+    width: 350px;
+}
+
+/* Right Column: History */
+.logs-module {
+    flex: 1; /* Takes remaining space */
+    min-width: 300px; /* Prevents becoming too thin */
+}
+
+/* Card Style */
 .module, .filter-bar {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(20, 20, 30, 0.7); /* Darker for readability */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
-    padding: 1.5rem; /* Reduced padding */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
 }
 
 .module-title {
     font-size: 1.2rem;
-    margin-bottom: 1rem;
     color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin-bottom: 20px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 0.5rem;
+    padding-bottom: 10px;
 }
 
 /* =========================================
-   4. INPUTS & CONTROLS
+   6. INPUTS & BUTTONS
    ========================================= */
-.filter-bar {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-}
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; }
 
 .input-field {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    padding: 10px;
     color: white;
+    padding: 12px;
+    border-radius: 8px;
     width: 100%;
+    font-size: 1rem;
     outline: none;
 }
-
-.upload-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+.input-field:focus { border-color: #ff007a; }
 
 .btn-galactic {
     width: 100%;
     padding: 12px;
     background: linear-gradient(45deg, #ff007a, #7a00ff);
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     color: white;
     font-weight: bold;
+    font-size: 1rem;
     cursor: pointer;
     text-transform: uppercase;
     transition: transform 0.2s;
+    margin-top: 10px;
 }
+.btn-galactic:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255, 0, 122, 0.5); }
 
-.btn-galactic:hover { transform: translateY(-2px); }
+/* File Upload Box */
+.file-upload-label {
+    display: block;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    text-align: center;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+.file-upload-label:hover { border-color: #ff007a; background: rgba(255, 0, 122, 0.05); }
+.file-upload-label span { color: #aaa; }
+.file-upload-label input { display: none; }
+
+.control-row { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
 
 /* =========================================
-   5. PREVIEW & RESULTS
+   7. RESULTS & HISTORY
    ========================================= */
 .preview-area img {
-    max-width: 100%;
-    max-height: 200px; /* Limits image height */
-    border-radius: 8px;
+    width: 100%;
+    border-radius: 10px;
     margin-top: 15px;
     border: 1px solid rgba(255,255,255,0.2);
 }
 
 .result-area {
     margin-top: 15px;
-    background: rgba(0,0,0,0.2);
-    padding: 10px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-.result-area h3 { color: #ff007a; margin-bottom: 5px; }
-
-/* =========================================
-   6. LOGS (HISTORY)
-   ========================================= */
-.logs-pod {
-    max-height: 500px; /* Scrollable if too many logs */
-    overflow-y: auto;
-    padding-right: 5px;
-}
-
-/* Custom Scrollbar */
-.logs-pod::-webkit-scrollbar { width: 5px; }
-.logs-pod::-webkit-scrollbar-thumb { background: #555; border-radius: 5px; }
-
+.logs-pod { max-height: 500px; overflow-y: auto; }
 .cosmic-logs { list-style: none; }
-
 .cosmic-logs li {
     background: rgba(255, 255, 255, 0.03);
-    margin-bottom: 8px;
-    padding: 12px;
-    border-radius: 6px;
-    border-left: 3px solid #7a00ff;
-    font-size: 0.9rem;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #7a00ff;
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }
-
-.cosmic-logs li strong { color: #a0a0ff; font-size: 1rem; }
 .remove-log {
     align-self: flex-end;
     background: #ff4757;
     border: none;
     color: white;
-    padding: 4px 8px;
+    padding: 5px 10px;
     border-radius: 4px;
-    font-size: 0.75rem;
-    cursor: pointer;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 /* =========================================
-   7. MOBILE RESPONSIVE
+   8. MOBILE RESPONSIVE
    ========================================= */
-@media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr; /* Stack vertically on phones */
-    }
-    .container {
-        padding: 1rem;
-    }
+@media (max-width: 800px) {
+    .dashboard-flex { flex-direction: column; }
+    .capture-module, .logs-module { width: 100%; flex: auto; }
     .title { font-size: 1.8rem; }
 }
