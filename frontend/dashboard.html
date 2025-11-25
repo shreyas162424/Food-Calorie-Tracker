@@ -3,59 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Powered Food Tracker - Cosmic Dashboard | The Code Warriors</title>
+    <title>Dashboard - NutriSnap</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="hero-bg" id="particles-js">
         <div class="container">
-            <header>
-                <h1 class="title animate-header"> Dashboard</h1>
-                <p class="subtitle">Greetings, Cosmic Foodie!</p>
-                <button id="logout-btn" class="btn-exit animate-btn">LogOut</button>
+            
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <h1 class="title">NutriSnap</h1>
+                    <p class="subtitle">Cosmic Dashboard</p>
+                </div>
+                <button id="logout-btn" class="btn-exit">Log Out</button>
             </header>
+
             <main>
-                <section class="module capture-module animate-module">
-                     <div class="logs-filter">
-        <input type="text" id="search-logs" placeholder="🔍 Search food logs..." class="input-field animate-input" />
-        <select id="filter-weight" class="input-field animate-input">
-            <option value="all" selected>All Weights</option>
-            <option value="50">Light Bite (50g)</option>
-            <option value="100">Star Meal (100g)</option>
-            <option value="150">Galactic Feast (150g)</option>
-        </select>
-    </div>
-                    <h2 class="module-title">Capture the Cosmos</h2>
-                    <div class="capture-pod">
-                        <input type="file" id="image-input" accept="image/*" class="input-field animate-input">
-                        <select id="weight" class="input-field animate-input">
-                            <option value="50">Light Bite (50g)</option>
-                            <option value="100" selected>Star Meal (100g)</option>
-                            <option value="150">Galactic Feast (150g)</option>
-                        </select>
-                        <button id="analyze-btn" class="btn-galactic animate-btn">Scan Picture</button>
-                        <div id="preview" class="preview-holo"></div>
-                        <div id="result" class="result-holo"></div>
-                    </div>
-                </section>
-               <section class="module logs-module animate-module">
-                    <h2 class="module-title">Your History </h2>
-                    <div class="logs-pod">
-                        <ul id="food-logs" class="cosmic-logs"></ul>
-                    </div>
-                </section>
+                <div class="filter-bar animate-module">
+                    <input type="text" id="search-logs" placeholder="🔍 Search your food history..." class="input-field compact-input" />
+                    <select id="filter-weight" class="input-field compact-input">
+                        <option value="all" selected>All Weights</option>
+                        <option value="50">Light (50g)</option>
+                        <option value="100">Standard (100g)</option>
+                        <option value="150">Large (150g)</option>
+                    </select>
+                </div>
+
+                <div class="dashboard-grid">
+                    
+                    <section class="module capture-module animate-module">
+                        <h2 class="module-title">Scan Food</h2>
+                        <div class="capture-pod">
+                            <div class="upload-controls">
+                                <input type="file" id="image-input" accept="image/*" class="input-field file-input">
+                                <select id="weight" class="input-field">
+                                    <option value="50">50g</option>
+                                    <option value="100" selected>100g</option>
+                                    <option value="150">150g</option>
+                                </select>
+                            </div>
+                            
+                            <button id="analyze-btn" class="btn-galactic">Analyze Image</button>
+                            
+                            <div id="preview" class="preview-area"></div>
+                            
+                            <div id="result" class="result-area"></div>
+                        </div>
+                    </section>
+
+                    <section class="module logs-module animate-module">
+                        <div class="logs-header">
+                            <h2 class="module-title">History</h2>
+                            <span class="log-count">Recent Scans</span>
+                        </div>
+                        <div class="logs-pod">
+                            <ul id="food-logs" class="cosmic-logs">
+                                </ul>
+                        </div>
+                    </section>
+                </div>
             </main>
-            <div class="cosmic-decor">
-                <span class="decor-star animate-star">🌌</span>
-                <span class="decor-star animate-star">🪐</span>
-                <span class="decor-star animate-star">✨</span>
-            </div>
+
             <footer>
-                <p>The Code Warriors | Pioneering the Food Frontier</p>
+                <p>The Code Warriors | 2025</p>
             </footer>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
