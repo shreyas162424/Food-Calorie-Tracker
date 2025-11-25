@@ -5,69 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - NutriSnap</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="hero-bg" id="particles-js">
         <div class="container">
             
             <header class="dashboard-header">
-                <div class="header-content">
+                <div>
                     <h1 class="title">NutriSnap</h1>
-                    <p class="subtitle">Cosmic Dashboard</p>
+                    <p class="subtitle">Cosmic Food Tracker</p>
                 </div>
                 <button id="logout-btn" class="btn-exit">Log Out</button>
             </header>
 
             <main>
-                <div class="filter-bar animate-module">
-                    <input type="text" id="search-logs" placeholder="🔍 Search your food history..." class="input-field compact-input" />
-                    <select id="filter-weight" class="input-field compact-input">
-                        <option value="all" selected>All Weights</option>
-                        <option value="50">Light (50g)</option>
-                        <option value="100">Standard (100g)</option>
-                        <option value="150">Large (150g)</option>
+                <div class="filter-bar">
+                    <input type="text" id="search-logs" placeholder="🔍 Search logs..." class="input-field" />
+                    <select id="filter-weight" class="input-field">
+                        <option value="all">All Weights</option>
+                        <option value="50">50g</option>
+                        <option value="100">100g</option>
+                        <option value="150">150g</option>
                     </select>
                 </div>
 
-                <div class="dashboard-grid">
+                <div class="dashboard-flex">
                     
-                    <section class="module capture-module animate-module">
-                        <h2 class="module-title">Scan Food</h2>
-                        <div class="capture-pod">
-                            <div class="upload-controls">
-                                <input type="file" id="image-input" accept="image/*" class="input-field file-input">
-                                <select id="weight" class="input-field">
-                                    <option value="50">50g</option>
-                                    <option value="100" selected>100g</option>
-                                    <option value="150">150g</option>
-                                </select>
-                            </div>
-                            
-                            <button id="analyze-btn" class="btn-galactic">Analyze Image</button>
-                            
-                            <div id="preview" class="preview-area"></div>
-                            
-                            <div id="result" class="result-area"></div>
+                    <section class="module capture-module">
+                        <h2 class="module-title">📸 Scan Food</h2>
+                        
+                        <label class="file-upload-label">
+                            <span>Click to Upload Image</span>
+                            <input type="file" id="image-input" accept="image/*">
+                        </label>
+
+                        <div class="control-row">
+                            <label>Weight:</label>
+                            <select id="weight" class="input-field">
+                                <option value="50">50g</option>
+                                <option value="100" selected>100g</option>
+                                <option value="150">150g</option>
+                            </select>
+                        </div>
+                        
+                        <button id="analyze-btn" class="btn-galactic">Analyze Now</button>
+                        
+                        <div id="preview" class="preview-area"></div>
+                        <div id="result" class="result-area"></div>
+                    </section>
+
+                    <section class="module logs-module">
+                        <h2 class="module-title">📜 History</h2>
+                        <div class="logs-pod">
+                            <ul id="food-logs" class="cosmic-logs"></ul>
                         </div>
                     </section>
 
-                    <section class="module logs-module animate-module">
-                        <div class="logs-header">
-                            <h2 class="module-title">History</h2>
-                            <span class="log-count">Recent Scans</span>
-                        </div>
-                        <div class="logs-pod">
-                            <ul id="food-logs" class="cosmic-logs">
-                                </ul>
-                        </div>
-                    </section>
                 </div>
             </main>
-
-            <footer>
-                <p>The Code Warriors | 2025</p>
-            </footer>
         </div>
     </div>
 
