@@ -242,3 +242,98 @@ body {
     .capture-module, .logs-module { width: 100%; flex: auto; }
     .title { font-size: 1.8rem; }
 }
+/* =========================================
+   9. NEW RESULT CARD STYLES
+   ========================================= */
+.result-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.result-header h3 {
+    text-transform: capitalize;
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0;
+}
+
+.confidence-badge {
+    background: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Nutrition Grid Layout */
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.nutri-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.nutri-item:hover {
+    transform: translateY(-3px);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.calorie-box {
+    grid-column: span 2; /* Make calories take full width */
+    background: linear-gradient(45deg, #ff4757, #ff6b81);
+    border: none;
+}
+
+.nutri-item .icon { font-size: 1.5rem; margin-bottom: 5px; }
+.nutri-item .value { font-size: 1.2rem; font-weight: bold; color: #fff; }
+.nutri-item .label { font-size: 0.8rem; color: #ddd; text-transform: uppercase; margin-top: 5px; }
+
+/* Summary Box */
+.summary-box {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #a0a0ff;
+}
+
+.summary-box h4 { margin-bottom: 10px; font-size: 1rem; color: #a0a0ff; }
+.summary-box p { font-size: 0.9rem; line-height: 1.5; color: #eee; }
+
+.loading-spinner {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #a0a0ff;
+    padding: 20px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
