@@ -105,48 +105,47 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             analyzeBtn.disabled = false;
+            const resultDiv = document.getElementById('result');
             
             if (data.error) {
-                result.innerHTML = `<p class="error-text">${data.error}</p>`;
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `<p class="error-text">${data.error}</p>`;
             } else {
-                // ✨ THIS IS THE NEW LAYOUT CODE ✨
-                result.innerHTML = `
-                    <div class="result-card animate-module">
-                        <div class="result-header">
-                            <h3>${data.foodName.replace(/_/g, ' ')}</h3>
-                            <span class="confidence-badge">${(data.confidence * 100).toFixed(1)}% Match</span>
-                        </div>
+                resultDiv.style.display = 'block'; // Make sure it shows up!
+                resultDiv.innerHTML = `
+                    <div class="result-header">
+                        <h3>${data.foodName.replace(/_/g, ' ')}</h3>
+                        <span class="confidence-badge">${(data.confidence * 100).toFixed(1)}% Match</span>
+                    </div>
 
-                        <div class="nutrition-grid">
-                            <div class="nutri-item calorie-box">
-                                <span class="icon">🔥</span>
-                                <span class="value">${data.nutrition.calories}</span>
-                                <span class="label">Calories</span>
-                            </div>
-                            <div class="nutri-item">
-                                <span class="icon">🍗</span>
-                                <span class="value">${data.nutrition.protein}g</span>
-                                <span class="label">Protein</span>
-                            </div>
-                            <div class="nutri-item">
-                                <span class="icon">🍞</span>
-                                <span class="value">${data.nutrition.carbs}g</span>
-                                <span class="label">Carbs</span>
-                            </div>
-                            <div class="nutri-item">
-                                <span class="icon">🥑</span>
-                                <span class="value">${data.nutrition.fat}g</span>
-                                <span class="label">Fats</span>
-                            </div>
+                    <div class="nutrition-grid">
+                        <div class="nutri-item calorie-box">
+                            <span class="icon">🔥</span>
+                            <span class="value">${data.nutrition.calories}</span>
+                            <span class="label">Calories</span>
                         </div>
-
-                        <div class="summary-box">
-                            <h4>📝 Knowledge Base</h4>
-                            <p>${data.summary}</p>
+                        <div class="nutri-item">
+                            <span class="icon">🍗</span>
+                            <span class="value">${data.nutrition.protein}g</span>
+                            <span class="label">Protein</span>
+                        </div>
+                        <div class="nutri-item">
+                            <span class="icon">🍞</span>
+                            <span class="value">${data.nutrition.carbs}g</span>
+                            <span class="label">Carbs</span>
+                        </div>
+                        <div class="nutri-item">
+                            <span class="icon">🥑</span>
+                            <span class="value">${data.nutrition.fat}g</span>
+                            <span class="label">Fats</span>
                         </div>
                     </div>
+
+                    <div class="summary-box">
+                        <p>${data.summary}</p>
+                    </div>
                 `;
-                loadLogs(); // Refresh history
+                loadLogs();
             }
         })
         .catch(error => {
